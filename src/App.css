@@ -15,7 +15,10 @@ html {
   justify-content: center;
   align-items: center;
 }
-
+a {
+  text-decoration: none;
+  color: purple;
+}
 /* SignUp Form */
 /* =========== */
 
@@ -27,20 +30,10 @@ html {
   flex-direction: column;
   padding: 1rem;
   font-size: 1.5rem;
-  background-color: #ffffff;
-  box-shadow: 3px 3px 50px 3px rgba(0, 0, 0, 0.3);
+  color: #000099;
   border-radius: 12px;
 }
-.form-heading {
-  font-size: 1.8rem;
-  font-family: "Poppins", sans-serif;
-  font-weight: 600;
-  letter-spacing: 1px;
-  padding: 1rem;
-  margin: 1rem;
-  border-bottom: 2px solid #000;
-}
-/* Check Box */
+/* Custom Check Box */
 .container-check-box {
   display: block;
   position: relative;
@@ -52,7 +45,6 @@ html {
   -ms-user-select: none;
   user-select: none;
 }
-/* Hide the browser's default checkbox */
 .container-check-box input {
   position: absolute;
   opacity: 0;
@@ -60,40 +52,29 @@ html {
   height: 0;
   width: 0;
 }
-
-/* Create a custom checkbox */
 .checkmark {
   position: absolute;
   top: 0;
   left: 0;
-  height: 1.6rem;
-  width: 1.6rem;
+  height: 1.7rem;
+  width: 1.7rem;
   background-color: #ccc;
+  border-radius: 2px;
 }
-
-/* On mouse-over, add a grey background color */
 .container-check-box:hover input ~ .checkmark {
   background-color: #757575;
 }
-
-/* When the checkbox is checked, add a blue background */
 .container-check-box input:checked ~ .checkmark {
-  background-color: #000;
+  background-color: #000099;
 }
-
-/* Create the checkmark/indicator (hidden when not checked) */
 .checkmark:after {
   content: "";
   position: absolute;
   display: none;
 }
-
-/* Show the checkmark when checked */
 .container-check-box input:checked ~ .checkmark:after {
   display: block;
 }
-
-/* Style the checkmark/indicator */
 .container-check-box .checkmark:after {
   left: 5px;
   top: 1px;
@@ -105,43 +86,106 @@ html {
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
 }
-
+.form-heading {
+  font-size: 1.8rem;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  letter-spacing: 1px;
+  padding: 1rem;
+  margin: 1rem;
+  border-bottom: 2px solid #000099;
+}
 .form-control {
   width: 80%;
-  padding: 0.5rem;
-  margin: 0.3rem;
-  /* border: 1px solid black; */
+  padding: 0.25rem;
+  margin: 0.25rem;
 }
 .form-label {
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: 500;
   font-family: "Poppins", sans-serif;
 }
 .form-control input {
   width: 100%;
-  padding: 0.7rem;
+  padding: 0.5rem 0.7rem;
   border: none;
   outline: none;
-  background-color: #cecece;
-  border-radius: 6px;
-  margin-top: 0.5rem;
+  border-radius: 3px;
+  border: 0.5px solid #000099;
+  margin-top: 0.25rem;
   font-size: 1.2rem;
   font-family: "Poppins", sans-serif;
+  transition: all 0.3s ease-in-out;
 }
-.form-control-button {
+.form-control input:hover,
+.form-control input:active {
+  background-color: #eee;
+}
+.form-submit-button {
   text-align: center;
+  padding: 0.3rem !important;
+}
+.form-control .button,
+.form-control .button-captcha {
+  background-color: #fff;
+  border: 1px solid #000099;
+  color: #000099;
+  transition: all 0.3s ease-in-out;
+}
+.form-control span {
+  color: tomato;
+  font-size: 1.2rem;
+}
+.form-control .link {
+  font-size: 1.3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.form-control .link a {
+  padding-left: 0.5rem;
+  font-size: 1.2rem;
 }
 
 .form-control .button {
-  background-color: #000;
-  color: #fff;
   width: 50%;
   margin-bottom: 2rem;
+  letter-spacing: 1px;
+}
+.form-control .button-captcha {
+  margin: 0;
+  padding: 0.5rem;
+  width: 30%;
+}
+.form-control .button:hover,
+.form-control .button-captcha:hover {
+  color: #fff;
+  background-color: #000099;
+  border: 1px solid #fff;
 }
 .captcha {
-  border: 1px solid black;
+  background: linear-gradient(90deg, rgba(255, 46, 0, 1) 0%, rgba(240, 255, 158, 1) 29%, rgba(160, 226, 138, 1) 68%, rgba(0, 151, 255, 1) 100%);
+  color: black;
   height: 30px;
-  margin: 1rem 0;
-  width: 70%;
+  width: 65%;
   border-radius: 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Poppins";
+  letter-spacing: 5px;
+}
+.form-control-captcha {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  text-align: center;
+  padding: 0.5rem 0;
+}
+
+@media screen and (max-width: 500px) {
+  .container-check-box {
+    font-size: 1.3rem;
+  }
 }
