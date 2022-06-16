@@ -1,34 +1,42 @@
 import React, { useEffect, useState } from "react";
+import "../App.css";
 import getCaptcha from "../utils/getCaptcha";
 import { Link, useNavigate } from "react-router-dom";
-import "../App.css";
-import verifyCaptcha from "../utils/verifyCaptcha";
 
 const SignInPage = () => {
   const navigate = useNavigate();
-  const [email, setemail] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [captcha, setCaptcha] = useState();
 
-  const userLogin = async (e) => {
+  const loginUser = async (e) => {
     e.preventDefault();
+    if (captcha === document.getElementById("captcha-box").innerHTML) {
+      const res = await fetch("/user/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      });
 
-    const res = await fetch("/user/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email,
-        password,
-      }),
-    });
-
-    const data = res.json();
-    if (res.status === 400 || !data) {
-      window.alert("Please fill all feilds !!");
+      const data = res.json();
+      if (res.status === 422 || !data) {
+        window.alert("Please fill all feilds !!");
+        console.log("Please fill all feilds !!");
+      } else if (res.status === 400) {
+        window.alert("Email or Password is incorrect.");
+        console.log("Email or Password is incorrect.");
+      } else {
+        window.alert("Login successfully.");
+        console.log("Login successfully.");
+        navigate("/");
+      }
     } else {
-      window.alert("Login successfully.");
-      navigate("/");
+      console.log("Invalid Captcha");
     }
   };
   useEffect(() => {
@@ -39,42 +47,43 @@ const SignInPage = () => {
     <>
       <div className="app">
         <form className="signup" method="POST">
-          <div className="form-heading">Sign In</div>
+          <div className="form-heading">Login</div>
 
           <div className="form-control">
             <div className="form-label">Email</div>
 
-            <input type="email" name="email" placeholder="Enter email" required value={email} onChange={(e) => setemail(e.target.value)} />
+            <input type="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
           </div>
 
           <div className="form-control">
             <div className="form-label">Password</div>
-            <input type="password" name="password" placeholder="Enter password" required value={password} onChange={(e) => setPassword(e.target.value)} />
+            <input type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
           </div>
           <div className="form-control ">
             <div className="form-control-captcha">
               <div className="captcha" id="captcha-box"></div>
-              <input type="button" value="Refresh" className="button-captcha"></input>
+              <input type="button" value="Refresh" className="button-captcha" onClick={getCaptcha}></input>
             </div>
             <div className="form-label">Captcha</div>
-            <input type="text" name="captchaCode" className="inputCaptcha" id="captcha" required />
+            <input
+              type="text"
+              name="captchaCode"
+              value={captcha}
+              onChange={(e) => {
+                setCaptcha(e.target.value);
+              }}
+              className="inputCaptcha"
+              id="captchaCode"
+              required
+            />
           </div>
           <div className="form-control form-submit-button">
-            <input
-              type="submit"
-              value="Log in"
-              className="button"
-              onClick={() => {
-                if (verifyCaptcha()) {
-                  userLogin();
-                }
-              }}
-            />
+            <input type="submit" value="Login" className="button" onClick={loginUser} />
           </div>
           <div className="form-control">
             <div className="form-label link">
               Don't have an account?
-              <Link to="../SignUpPage">Create an account.</Link>
+              <Link to="../user/register">Create an account.</Link>
             </div>
           </div>
         </form>

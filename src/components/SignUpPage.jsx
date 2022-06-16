@@ -1,10 +1,10 @@
 import React, { useEffect, useState, navigator } from "react";
 import getCaptcha from "../utils/getCaptcha";
 import { Link, useNavigate } from "react-router-dom";
-// import verifyCaptcha from "../utils/verifyCaptcha";
 
 const SignUpPage = () => {
   const navigate = useNavigate();
+  const [captcha, setCaptcha] = useState();
 
   const [user, setUser] = useState({
     name: "",
@@ -24,42 +24,48 @@ const SignUpPage = () => {
 
     setUser({ ...user, [name]: value });
   };
-  const Postdata = async (e) => {
+  const postData = async (e) => {
     e.preventDefault();
 
     const { name, email, contact, location, password, cPassword, profilePicture, checkbox } = user;
+    if (captcha === document.getElementById("captcha-box").innerHTML) {
+      const res = await fetch("/user/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          contact,
+          location,
+          password,
+          cPassword,
+          profilePicture,
+          checkbox,
+        }),
+      });
 
-    const res = await fetch("/user/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name,
-        email,
-        contact,
-        location,
-        password,
-        cPassword,
-        profilePicture,
-        checkbox,
-      }),
-    });
-    const data = await res.json;
-    if (data.status === 422 || !data) {
-      window.alert("Invalid data resgistration");
-      console.log("Invalid data resgistration");
+      const data = await res.json();
+      if (data.status === 422 || !data) {
+        window.alert("Invalid Registration");
+        console.log("Invalid Registration");
+      } else {
+        window.alert("Registration Successfull");
+        console.log("Registration Successfull");
+        navigate("/user/login");
+      }
     } else {
-      window.alert("Registration succesfull");
-      console.log("Registration succesfull");
-      navigate("/SignInPage");
+      window.alert("Invalid Captcha");
+      console.log("Invalid Captcha");
     }
   };
 
-  // ADD geo location
   useEffect(() => {
     getCaptcha();
   }, []);
+
+  // ADD geo location
   let x = document.getElementById("demo");
   function getLocation() {
     if (navigator.geolocation) {
@@ -76,10 +82,9 @@ const SignUpPage = () => {
     console.log(lat, long);
     console.log(position);
   }
-
   return (
     <>
-      <form method="POST" className="signup">
+      <form method="POST" className="signup" enctype="multipart/form-data">
         <div className="form-heading">Create an Account</div>
         <div className="form-control">
           <div className="form-label">
@@ -116,12 +121,20 @@ const SignUpPage = () => {
         <div className="form-control ">
           <div className="form-control-captcha">
             <div className="captcha" id="captcha-box"></div>
-            <input type="button" className="button-captcha" value="Refresh" onClick={getCaptcha} />
+            <input type="button" value="Refresh" className="button-captcha" onClick={getCaptcha}></input>
           </div>
-          <div className="form-label">
-            Captcha<span>*</span>
-          </div>
-          <input type="text" name="captchaCode" className="inputCaptcha" />
+          <div className="form-label">Captcha</div>
+          <input
+            type="text"
+            name="captchaCode"
+            value={captcha}
+            onChange={(e) => {
+              setCaptcha(e.target.value);
+            }}
+            className="inputCaptcha"
+            id="captcha"
+            required
+          />
         </div>
         <div className="form-control">
           <label className="container-check-box">
@@ -131,21 +144,12 @@ const SignUpPage = () => {
           </label>
         </div>
         <div className="form-control form-submit-button">
-          <input
-            type="submit"
-            onClick={() => {
-              // if (verifyCaptcha()) {
-              Postdata();
-              // }
-            }}
-            value="register"
-            className="button"
-          />
+          <input type="submit" value="register" className="button" onClick={postData} />
         </div>
         <div className="form-control">
           <div className="form-label link">
             Already have an account?
-            <Link to="../SignInPage"> Sign in</Link>
+            <Link to="../user/login"> Login</Link>
           </div>
         </div>
       </form>

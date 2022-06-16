@@ -5,8 +5,7 @@ const getCaptcha = () => {
     let rnum = Math.round(Math.random() * 100);
     cap = cap + capArray.charAt(Math.abs(rnum - 37));
   }
-  document.getElementById("captcha-box").innerHTML = cap;
-  return cap;
+  document.getElementById("captcha-box").innerText = cap;
 };
 
 export default getCaptcha;
