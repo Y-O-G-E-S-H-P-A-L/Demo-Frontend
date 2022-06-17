@@ -84,7 +84,7 @@ const SignUpPage = () => {
   }
   return (
     <>
-      <form method="POST" className="signup" enctype="multipart/form-data">
+      <form method="POST" className="signup" encType="multipart/form-data">
         <div className="form-heading">Create an Account</div>
         <div className="form-control">
           <div className="form-label">
