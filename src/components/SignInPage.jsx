@@ -23,19 +23,17 @@ const SignInPage = () => {
         }),
       });
 
-      const data = res.json();
-      if (res.status === 422 || !data) {
-        window.alert("Please fill all feilds !!");
-        console.log("Please fill all feilds !!");
-      } else if (res.status === 400) {
-        window.alert("Email or Password is incorrect.");
-        console.log("Email or Password is incorrect.");
+      const data = await res.json();
+      if (data.error) {
+        window.alert(data.error);
+        console.log(data.error);
       } else {
-        window.alert("Login successfully.");
-        console.log("Login successfully.");
+        window.alert(data.message);
+        console.log(data.message);
         navigate("/");
       }
     } else {
+      window.alert("Invalid Captcha");
       console.log("Invalid Captcha");
     }
   };

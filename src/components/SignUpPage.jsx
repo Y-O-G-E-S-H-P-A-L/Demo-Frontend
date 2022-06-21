@@ -1,4 +1,4 @@
-import React, { useEffect, useState, navigator } from "react";
+import React, { useEffect, useState } from "react";
 import getCaptcha from "../utils/getCaptcha";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -17,6 +17,25 @@ const SignUpPage = () => {
     checkbox: "",
   });
 
+  const convertBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+      };
+
+      fileReader.onerror = (error) => {
+        reject(error);
+      };
+    });
+  };
+  const uploadImage = async (e) => {
+    const file = e.target.files[0];
+    user.profilePicture = await convertBase64(file);
+    console.log(user.profilePicture);
+  };
   let name, value;
   const handelInput = (e) => {
     name = e.target.name;
@@ -28,6 +47,7 @@ const SignUpPage = () => {
     e.preventDefault();
 
     const { name, email, contact, location, password, cPassword, profilePicture, checkbox } = user;
+
     if (captcha === document.getElementById("captcha-box").innerHTML) {
       const res = await fetch("/user/register", {
         method: "POST",
@@ -47,12 +67,12 @@ const SignUpPage = () => {
       });
 
       const data = await res.json();
-      if (data.status === 422 || !data) {
-        window.alert("Invalid Registration");
-        console.log("Invalid Registration");
+      if (data.error) {
+        window.alert(data.error);
+        console.log(data.error);
       } else {
-        window.alert("Registration Successfull");
-        console.log("Registration Successfull");
+        window.alert(data.message);
+        console.log(data.message);
         navigate("/user/login");
       }
     } else {
@@ -65,23 +85,6 @@ const SignUpPage = () => {
     getCaptcha();
   }, []);
 
-  // ADD geo location
-  let x = document.getElementById("demo");
-  function getLocation() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(showPosition);
-    } else {
-      x.innerText = "Geolocation is not supported by this browser.";
-    }
-  }
-
-  function showPosition(position) {
-    let lat = position.coords.latitude;
-    let long = position.coords.longitude;
-    x.value = position.coords.latitude + "," + position.coords.longitude;
-    console.log(lat, long);
-    console.log(position);
-  }
   return (
     <>
       <form method="POST" className="signup" encType="multipart/form-data">
@@ -102,9 +105,9 @@ const SignUpPage = () => {
           <div className="form-label">Contact Number</div>
           <input type="number" name="contact" value={user.contact} onChange={handelInput} required />
         </div>
-        <div className="form-control" onClick={getLocation}>
+        <div className="form-control">
           <div className="form-label">Location</div>
-          <input type="text" name="location" id="demo" />
+          <input type="text" name="location" value={user.location} onChange={handelInput} />
         </div>
         <div className="form-control">
           <div className="form-label">Password</div>
@@ -116,7 +119,7 @@ const SignUpPage = () => {
         </div>
         <div className="form-control">
           <div className="form-label">Profile Picture</div>
-          <input type="file" name="profilePicture" value={user.profilePicture} onChange={handelInput} accept="image/*" />
+          <input type="file" name="profilePicture" onChange={uploadImage} accept="image/*" />
         </div>
         <div className="form-control ">
           <div className="form-control-captcha">
@@ -124,17 +127,7 @@ const SignUpPage = () => {
             <input type="button" value="Refresh" className="button-captcha" onClick={getCaptcha}></input>
           </div>
           <div className="form-label">Captcha</div>
-          <input
-            type="text"
-            name="captchaCode"
-            value={captcha}
-            onChange={(e) => {
-              setCaptcha(e.target.value);
-            }}
-            className="inputCaptcha"
-            id="captcha"
-            required
-          />
+          <input type="text" name="captchaCode" onChange={(e) => setCaptcha(e.target.value)} className="inputCaptcha" id="captcha" required />
         </div>
         <div className="form-control">
           <label className="container-check-box">

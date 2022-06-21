@@ -1,5 +1,5 @@
 const getCaptcha = () => {
-  let capArray = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz";
+  let capArray = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   let cap = "";
   for (let i = 0; i < 6; i++) {
     let rnum = Math.round(Math.random() * 100);
