@@ -44,9 +44,9 @@ const SignInPage = () => {
   return (
     <>
       <div className="app">
-        <form className="signup" method="POST">
+        <form className="form" method="POST">
+          <div className="left"></div>
           <div className="form-heading">Login</div>
-
           <div className="form-control">
             <div className="form-label">Email</div>
 

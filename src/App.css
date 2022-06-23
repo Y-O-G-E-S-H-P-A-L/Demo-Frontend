@@ -24,10 +24,10 @@ a {
   justify-content: center;
   align-items: center;
 }
-/* SignUp Form */
+/* Form */
 /* =========== */
 
-.signup {
+.form {
   width: 50rem;
   display: flex;
   justify-content: center;
@@ -188,9 +188,18 @@ a {
   text-align: center;
   padding: 0.5rem 0;
 }
-
 @media screen and (max-width: 500px) {
   .container-check-box {
     font-size: 1.3rem;
   }
+}
+/* Home Page */
+.home {
+  height: 100vh;
+  width: 100vw;
+}
+
+/* Header */
+.header {
+  font-size: 1.8rem;
 }
