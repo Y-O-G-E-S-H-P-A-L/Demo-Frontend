@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import "../App.css";
-import getCaptcha from "../utils/getCaptcha";
+import "./Form.css";
+import getCaptcha from "../../utils/getCaptcha";
 import { Link, useNavigate } from "react-router-dom";
 
-const SignInPage = () => {
+const SignInForm = ({ setUser }) => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -90,4 +90,4 @@ const SignInPage = () => {
   );
 };
 
-export default SignInPage;
+export default SignInForm;

@@ -1,0 +1,66 @@
+/* Card Styles */
+.card-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.card {
+  width: 32rem;
+  height: 42rem;
+  margin: 3rem 2rem;
+  background-color: #fff;
+  border-radius: 1.5rem;
+  overflow: hidden;
+  transition: all 0.3s ease-out;
+  padding: 1rem;
+  text-align: center;
+}
+.card:hover {
+  transform: scale(1.03);
+}
+.card .image {
+  height: 60%;
+  width: 100%;
+}
+.card .image img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 1rem;
+}
+.card .name {
+  padding: 0.5rem 0.7rem;
+  font-size: 1.75rem;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+.card .description {
+  height: 10%;
+  font-size: 1.5rem;
+  border-radius: 1rem;
+  overflow: auto;
+}
+.description::-webkit-scrollbar {
+  display: none;
+}
+.card button {
+  width: 100%;
+  background-color: rgb(105, 105, 105);
+  padding: 1rem;
+  color: white;
+  border: none;
+  outline: none;
+  border-radius: 0.9rem;
+  transition: 0.3s ease;
+}
+.card button:hover {
+  background-color: #999;
+  color: black;
+}
+
+@media screen and (max-width: 800px) {
+  .card {
+    width: 28rem;
+  }
+}

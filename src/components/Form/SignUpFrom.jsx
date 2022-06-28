@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import getCaptcha from "../utils/getCaptcha";
+import "./Form.css";
+import getCaptcha from "../../utils/getCaptcha";
 import { Link, useNavigate } from "react-router-dom";
 
-const SignUpPage = () => {
+const SignUpFrom = () => {
   const navigate = useNavigate();
   const [captcha, setCaptcha] = useState();
 
@@ -103,19 +104,23 @@ const SignUpPage = () => {
         </div>
         <div className="form-control">
           <div className="form-label">Contact Number</div>
-          <input type="number" name="contact" value={user.contact} onChange={handelInput} required />
+          <input type="number" name="contact" value={user.contact} onChange={handelInput} />
         </div>
         <div className="form-control">
           <div className="form-label">Location</div>
           <input type="text" name="location" value={user.location} onChange={handelInput} />
         </div>
         <div className="form-control">
-          <div className="form-label">Password</div>
-          <input type="password" name="password" value={user.password} onChange={handelInput} />
+          <div className="form-label">
+            Password<span>*</span>
+          </div>
+          <input type="password" name="password" value={user.password} onChange={handelInput} required />
         </div>
         <div className="form-control">
-          <div className="form-label">Confirm Password</div>
-          <input type="password" name="cPassword" value={user.cPassword} onChange={handelInput} />
+          <div className="form-label">
+            Confirm Password<span>*</span>
+          </div>
+          <input type="password" name="cPassword" value={user.cPassword} onChange={handelInput} required />
         </div>
         <div className="form-control">
           <div className="form-label">Profile Picture</div>
@@ -126,7 +131,9 @@ const SignUpPage = () => {
             <div className="captcha" id="captcha-box"></div>
             <input type="button" value="Refresh" className="button-captcha" onClick={getCaptcha}></input>
           </div>
-          <div className="form-label">Captcha</div>
+          <div className="form-label">
+            Captcha<span>*</span>
+          </div>
           <input type="text" name="captchaCode" onChange={(e) => setCaptcha(e.target.value)} className="inputCaptcha" id="captcha" required />
         </div>
         <div className="form-control">
@@ -150,4 +157,4 @@ const SignUpPage = () => {
   );
 };
 
-export default SignUpPage;
+export default SignUpFrom;

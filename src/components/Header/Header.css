@@ -1,0 +1,93 @@
+/* Header Styles */
+header {
+  height: 60px;
+  width: 100%;
+  padding: 2rem 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+}
+header div > img {
+  height: 4rem;
+  width: 4rem;
+  border-radius: 100%;
+}
+.tab,
+.btn {
+  display: flex;
+}
+.tab > div,
+.btn button {
+  padding: 0.7rem 1.75rem;
+  display: flex;
+  align-items: center;
+  margin: 0 1rem;
+  font-size: 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0px 0px 3px 3px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  border: none;
+  transition: all 0.3s;
+}
+.tab > div {
+  position: relative;
+}
+.tab > div span {
+  height: 2rem;
+  width: 2rem;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.25rem;
+  border-radius: 50%;
+  background-color: tomato;
+  position: absolute;
+  right: -0.5rem;
+  top: -0.5rem;
+}
+.logo:hover,
+.profile:hover,
+.tab > div:hover,
+.btn button:hover {
+  color: white;
+  background-color: tomato;
+}
+.profile,
+.logo {
+  padding: 0.2rem;
+  display: flex;
+  align-items: center;
+  margin: 0 2rem;
+  font-size: 1.5rem;
+  border-radius: 2rem;
+  box-shadow: 0px 0px 3px 3px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+.profile > span,
+.logo > span {
+  padding: 0 1rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+.profile > img,
+.logo > img {
+  margin: 0.15rem;
+}
+header a {
+  color: black;
+}
+
+@media screen and (max-width: 1024px) {
+  .tab > div {
+    display: none;
+  }
+  .btn > button {
+    display: none;
+  }
+  .logo span {
+    display: none;
+  }
+}

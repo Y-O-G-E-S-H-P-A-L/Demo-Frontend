@@ -1,0 +1,19 @@
+/* Footer Styles */
+footer {
+  height: 50px;
+  width: 100%;
+  display: flex;
+  padding: 2rem;
+  justify-content: center;
+  align-items: center;
+  letter-spacing: 0.5px;
+  font-size: 1.5rem;
+  color: rgba(0, 0, 0, 0.99);
+  background-color: rgba(255, 255, 255, 0.95);
+}
+footer > label {
+  font-weight: 600;
+}
+footer > span {
+  margin-left: 5px;
+}
