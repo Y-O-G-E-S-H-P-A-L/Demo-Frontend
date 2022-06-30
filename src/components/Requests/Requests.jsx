@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
-import "./Home.css";
-import Card from "../Card/Card";
+import "../Home/Home.css";
+import RequestCard from "../Card/RequestCard";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
 
-const Home = ({ userLogin }) => {
+const Requests = ({ userLogin }) => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
     const getData = async () => {
-      const response = await fetch("/user");
+      const response = await fetch("/user/requests");
       setUsers(await response.json());
     };
     getData();
@@ -22,7 +22,7 @@ const Home = ({ userLogin }) => {
         <div className="card-container">
           {users.map((user, i) => {
             if (userLogin._id !== user._id) {
-              return <Card user={user} userLogin={userLogin} />;
+              return <RequestCard user={user} userLogin={userLogin} />;
             } else {
               return <></>;
             }
@@ -34,4 +34,4 @@ const Home = ({ userLogin }) => {
   );
 };
 
-export default Home;
+export default Requests;

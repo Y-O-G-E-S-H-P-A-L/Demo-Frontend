@@ -2,29 +2,28 @@ import React, { useEffect, useState } from "react";
 import "./Header.css";
 import user from "../../images/user.jpg";
 import logo from "../../images/logo.jpg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-const Header = () => {
-  const [loggedIn, setLoggedIn] = useState(false);
-  const [name, setName] = useState();
-  const [profile, setProfile] = useState();
-  const [userId, setUserId] = useState();
-
+const Header = ({ userLogin }) => {
+  const [count, setCount] = useState(0);
+  const navigate = useNavigate();
+  let login = false;
+  if (Object.keys(userLogin).length !== 0) {
+    login = true;
+  }
   useEffect(() => {
-    const getUser = async () => {
-      const response = await fetch("/user/loggedInUser");
-      let res = await response.json();
-      if (Object.keys(res.loggedInUser).length !== 0) {
-        setLoggedIn(true);
-      } else {
-        setLoggedIn(false);
-      }
-      setName(res.loggedInUser.name);
-      setProfile(res.loggedInUser.profilePicture);
-      setUserId(res.loggedInUser._id);
-    };
-    getUser();
-  }, []);
+    if (Object.keys(userLogin).length !== 0) {
+      setCount(userLogin.pendings.length);
+    }
+  }, [userLogin]);
+  const getFriends = () => {
+    navigate("/friends");
+  };
+
+  const getRequests = () => {
+    navigate("/requests");
+  };
+
   return (
     <header>
       <Link to="../../../../../">
@@ -33,19 +32,19 @@ const Header = () => {
           <span>Demo App</span>
         </div>
       </Link>
-      {loggedIn ? (
+      {login ? (
         <div className="tab">
-          <div>
-            Requests<span>3</span>
+          <div onClick={getRequests}>
+            Requests<span>{count}</span>
           </div>
-          <div>Friends</div>
+          <div onClick={getFriends}>Friends</div>
         </div>
       ) : (
         <></>
       )}
-      {!loggedIn ? (
+      {!login ? (
         <div className="btn">
-          <Link to="../user/register">
+          <Link to="/user/register">
             <button>Register</button>
           </Link>
           <Link to="../user/login">
@@ -55,12 +54,11 @@ const Header = () => {
       ) : (
         <></>
       )}
-      {loggedIn ? (
-        <Link to="../user/profile">
+      {login ? (
+        <Link to="../../">
           <div className="profile">
-            <input type="hidden" name="id" value={userId} />
-            <span>{name ? name : "username"}</span>
-            <img src={profile ? profile : user} alt="" />
+            <span>{userLogin.name ? userLogin.name : "username"}</span>
+            <img src={userLogin.profilePicture ? userLogin.profilePicture : user} alt="" />
           </div>
         </Link>
       ) : (

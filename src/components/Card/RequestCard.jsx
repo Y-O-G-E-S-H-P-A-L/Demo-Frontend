@@ -10,7 +10,7 @@ const Card = ({ user, userLogin }) => {
   if (!location) {
     location = "Not available";
   }
-  const letsConnect = async (id) => {
+  const letsReject = async (id) => {
     if (Object.keys(userLogin).length !== 0) {
       if (document.getElementById(`${id}`).innerText !== "Withdraw") {
         const res = await fetch(`/user/sendRequest/${user._id}`, {
@@ -66,8 +66,11 @@ const Card = ({ user, userLogin }) => {
       <div className="description">Email : {email}</div>
       <div className="description">Location : {location}</div>
       <div>
-        <button id={`${user._id}`} onClick={() => letsConnect(user._id)}>
-          Send Request
+        <button className="request" onClick={() => letsReject(user._id)}>
+          Accept
+        </button>
+        <button className="request" onClick={() => letsReject(user._id)}>
+          Reject
         </button>
       </div>
     </div>

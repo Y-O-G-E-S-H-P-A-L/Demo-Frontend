@@ -3,15 +3,14 @@ import "./Form.css";
 import getCaptcha from "../../utils/getCaptcha";
 import { Link, useNavigate } from "react-router-dom";
 
-const SignInForm = ({ setUser }) => {
+const SignInForm = ({ setUserLogin }) => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [captcha, setCaptcha] = useState();
 
   const loginUser = async (e) => {
     e.preventDefault();
-    if (captcha === document.getElementById("captcha-box").innerHTML) {
+    if (document.getElementById("captchaCode").value === document.getElementById("captcha-box").innerHTML) {
       const res = await fetch("/user/login", {
         method: "POST",
         headers: {
@@ -30,6 +29,7 @@ const SignInForm = ({ setUser }) => {
       } else {
         window.alert(data.message);
         console.log(data.message);
+        setUserLogin(data.user);
         navigate("/");
       }
     } else {
@@ -63,17 +63,7 @@ const SignInForm = ({ setUser }) => {
               <input type="button" value="Refresh" className="button-captcha" onClick={getCaptcha}></input>
             </div>
             <div className="form-label">Captcha</div>
-            <input
-              type="text"
-              name="captchaCode"
-              value={captcha}
-              onChange={(e) => {
-                setCaptcha(e.target.value);
-              }}
-              className="inputCaptcha"
-              id="captchaCode"
-              required
-            />
+            <input type="text" name="captchaCode" className="inputCaptcha" id="captchaCode" required />
           </div>
           <div className="form-control form-submit-button">
             <input type="submit" value="Login" className="button" onClick={loginUser} />

@@ -42,7 +42,7 @@ header div > img {
   align-items: center;
   font-size: 1.25rem;
   border-radius: 50%;
-  background-color: tomato;
+  background-color: rgb(255, 175, 71);
   position: absolute;
   right: -0.5rem;
   top: -0.5rem;

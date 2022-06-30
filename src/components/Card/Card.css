@@ -1,14 +1,13 @@
 /* Card Styles */
 .card-container {
   display: flex;
-  justify-content: space-around;
-  align-items: center;
   flex-wrap: wrap;
+  align-items: center;
 }
 .card {
   width: 32rem;
   height: 42rem;
-  margin: 3rem 2rem;
+  margin: 3rem 3.1rem;
   background-color: #fff;
   border-radius: 1.5rem;
   overflow: hidden;
@@ -59,6 +58,10 @@
   color: black;
 }
 
+.card .request {
+  width: 40%;
+  margin: 0rem 1.5rem;
+}
 @media screen and (max-width: 800px) {
   .card {
     width: 28rem;

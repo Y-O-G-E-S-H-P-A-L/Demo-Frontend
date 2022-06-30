@@ -5,8 +5,6 @@ import { Link, useNavigate } from "react-router-dom";
 
 const SignUpFrom = () => {
   const navigate = useNavigate();
-  const [captcha, setCaptcha] = useState();
-
   const [user, setUser] = useState({
     name: "",
     email: "",
@@ -35,7 +33,6 @@ const SignUpFrom = () => {
   const uploadImage = async (e) => {
     const file = e.target.files[0];
     user.profilePicture = await convertBase64(file);
-    console.log(user.profilePicture);
   };
   let name, value;
   const handelInput = (e) => {
@@ -49,7 +46,8 @@ const SignUpFrom = () => {
 
     const { name, email, contact, location, password, cPassword, profilePicture, checkbox } = user;
 
-    if (captcha === document.getElementById("captcha-box").innerHTML) {
+    if (document.getElementById("captchaCode").value === document.getElementById("captcha-box").innerHTML) {
+      // if (captcha === document.getElementById("captcha-box").innerHTML) {
       const res = await fetch("/user/register", {
         method: "POST",
         headers: {
@@ -131,10 +129,8 @@ const SignUpFrom = () => {
             <div className="captcha" id="captcha-box"></div>
             <input type="button" value="Refresh" className="button-captcha" onClick={getCaptcha}></input>
           </div>
-          <div className="form-label">
-            Captcha<span>*</span>
-          </div>
-          <input type="text" name="captchaCode" onChange={(e) => setCaptcha(e.target.value)} className="inputCaptcha" id="captcha" required />
+          <div className="form-label">Captcha</div>
+          <input type="text" name="captchaCode" className="inputCaptcha" id="captchaCode" required />
         </div>
         <div className="form-control">
           <label className="container-check-box">
