@@ -2,7 +2,16 @@ import React from "react";
 import "./Card.css";
 import profile from "../../images/icon.png";
 
-const Card = ({ user, userLogin }) => {
+const RequestCard = ({ user, userLogin, id }) => {
+  const getDetails = async () => {
+    console.log(`/user/${id}`);
+    const res = await fetch(`/user/${id}`);
+    const u = await res.json();
+    console.log(user);
+  };
+  getDetails();
+  console.log(user);
+
   let { name, email, location, profilePicture } = user;
   if (!profilePicture) {
     profilePicture = profile;
@@ -10,52 +19,46 @@ const Card = ({ user, userLogin }) => {
   if (!location) {
     location = "Not available";
   }
-  const letsReject = async (id) => {
-    if (Object.keys(userLogin).length !== 0) {
-      if (document.getElementById(`${id}`).innerText !== "Withdraw") {
-        const res = await fetch(`/user/sendRequest/${user._id}`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            userId: userLogin._id,
-          }),
-        });
-        const data = await res.json();
-        if (data.error) {
-          window.alert(data.error);
-          console.log(data.error);
-        } else {
-          window.alert(data.message);
-          console.log(data.message);
-          document.getElementById(`${id}`).innerText = "Withdraw";
-        }
-      } else {
-        const res = await fetch(`/user/rejectRequest/${user._id}`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            userId: userLogin._id,
-          }),
-        });
 
-        const data = await res.json();
-        if (data.error) {
-          window.alert(data.error);
-          console.log(data.error);
-        } else {
-          window.alert(data.message);
-          console.log(data.message);
-          document.getElementById(`${id}`).innerText = "Send Request";
-        }
-      }
+  const acceptRequest = async (id) => {
+    const res = await fetch(`/user/acceptRequest/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        userId: userLogin._id,
+      }),
+    });
+    const data = await res.json();
+    if (data.error) {
+      window.alert(data.error);
+      console.log(data.error);
     } else {
-      window.alert("Please login first !!");
+      window.alert(data.message);
+      console.log(data.message);
     }
   };
+  const rejectRequest = async (id) => {
+    const res = await fetch(`/user/rejectRequest/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        userId: userLogin._id,
+      }),
+    });
+    const data = await res.json();
+    if (data.error) {
+      window.alert(data.error);
+      console.log(data.error);
+    } else {
+      window.alert(data.message);
+      console.log(data.message);
+    }
+  };
+
   return (
     <div className="card">
       <div className="image">
@@ -65,11 +68,11 @@ const Card = ({ user, userLogin }) => {
       <div className="name">Name : {name}</div>
       <div className="description">Email : {email}</div>
       <div className="description">Location : {location}</div>
-      <div>
-        <button className="request" onClick={() => letsReject(user._id)}>
+      <div className="requestBtns">
+        <button className="request" onClick={() => acceptRequest(user._id)}>
           Accept
         </button>
-        <button className="request" onClick={() => letsReject(user._id)}>
+        <button className="request" onClick={() => rejectRequest(user._id)}>
           Reject
         </button>
       </div>
@@ -77,4 +80,4 @@ const Card = ({ user, userLogin }) => {
   );
 };
 
-export default Card;
+export default RequestCard;

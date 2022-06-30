@@ -18,11 +18,11 @@ const Home = ({ userLogin }) => {
   return (
     <>
       <div className="home">
-        <Header userLogin={userLogin} />
+        {<Header userLogin={userLogin} />}
         <div className="card-container">
-          {users.map((user, i) => {
+          {users.map((user) => {
             if (userLogin._id !== user._id) {
-              return <Card user={user} userLogin={userLogin} />;
+              return <Card user={user} userLogin={userLogin} key={user._id} />;
             } else {
               return <></>;
             }

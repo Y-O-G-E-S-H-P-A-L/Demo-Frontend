@@ -13,15 +13,15 @@ const Header = ({ userLogin }) => {
   }
   useEffect(() => {
     if (Object.keys(userLogin).length !== 0) {
-      setCount(userLogin.pendings.length);
+      setCount(userLogin.requests.length);
     }
   }, [userLogin]);
   const getFriends = () => {
-    navigate("/friends");
+    navigate(`/user/friends/${userLogin._id}`);
   };
 
   const getRequests = () => {
-    navigate("/requests");
+    navigate(`/user/requests/${userLogin._id}`);
   };
 
   return (
