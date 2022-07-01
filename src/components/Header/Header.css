@@ -8,6 +8,11 @@ header {
   align-items: center;
   background-color: white;
 }
+header > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 header div > img {
   height: 4rem;
   width: 4rem;

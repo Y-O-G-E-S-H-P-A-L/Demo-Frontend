@@ -1,4 +1,12 @@
 /* Form */
+
+.forms {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .form {
   width: 50rem;
   display: flex;

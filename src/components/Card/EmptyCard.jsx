@@ -2,7 +2,7 @@ import React from "react";
 import "./Card.css";
 import notFound from "../../images/notFound.png";
 
-const EmptyCard = ({ msg }) => {
+const EmptyCard = () => {
   return (
     <div className="empty-card">
       <div className="image">

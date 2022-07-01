@@ -17,19 +17,23 @@ const Home = ({ userLogin }) => {
 
   return (
     <>
+      {<Header userLogin={userLogin} />}
       <div className="home">
-        {<Header userLogin={userLogin} />}
         <div className="card-container">
           {users.map((user) => {
+            // if (users.length < 5) {
             if (userLogin._id !== user._id) {
               return <Card user={user} userLogin={userLogin} key={user._id} />;
             } else {
               return <></>;
             }
+            // } else {
+            // return <></>;
+            // }
           })}
         </div>
-        <Footer name={"YOGESH & JATUL"} />
       </div>
+      <Footer />
     </>
   );
 };

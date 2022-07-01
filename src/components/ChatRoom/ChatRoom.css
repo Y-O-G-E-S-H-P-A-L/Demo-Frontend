@@ -1,0 +1,16 @@
+.chat-room {
+  height: 100%;
+  width: 100%;
+}
+.chat-header {
+  height: 10%;
+  border: 1px solid white;
+}
+.chat-footer {
+  height: 10%;
+  border: 1px solid black;
+}
+.chating {
+  height: 80%;
+  border: 1px solid black;
+}

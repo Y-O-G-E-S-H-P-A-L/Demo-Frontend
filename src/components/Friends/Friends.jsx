@@ -1,24 +1,46 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Friends.css";
-import user from "../../images/user.png";
-const Friends = () => {
+import Header from "../Header/Header";
+import Footer from "../Footer/Footer";
+import FriendCard from "../Card/FriendCard";
+import EmptyCard from "../Card/EmptyCard";
+import ChatRoom from "../ChatRoom/ChatRoom";
+
+const Friends = ({ userLogin }) => {
+  const [friends, setFriends] = useState([]);
+  const [friendId, setFriendId] = useState();
+
+  console.log(friendId);
+  useEffect(() => {
+    const getData = async () => {
+      const response = await fetch(`/user/friends/${userLogin._id}`);
+      setFriends(await response.json());
+    };
+    getData();
+  }, [userLogin]);
+
+  console.log(friendId);
   return (
-    <div>
-      <div className="left">
-        <div className="left-title">
-          <h3>Friends</h3>
-        </div>
-        <div className="friends">
-          <div className="friends-card">
-            <img src={user} alt="" />
-            <span className="friend-name">username </span>
+    <>
+      <Header userLogin={userLogin} />
+      <div className="home">
+        <div className="friends-container">
+          <div className="left">
+            {friends.length ? (
+              friends.map((id) => {
+                return <FriendCard key={id} id={id} setFriendId={setFriendId} />;
+              })
+            ) : (
+              <EmptyCard />
+            )}
+          </div>
+          <div className="right">
+            <ChatRoom friendId={friendId} />
           </div>
         </div>
       </div>
-      {/* <div className="right">
-        <div className="right-title">Right</div>
-      </div> */}
-    </div>
+      <Footer />
+    </>
   );
 };
 

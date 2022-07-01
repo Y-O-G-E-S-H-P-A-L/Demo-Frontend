@@ -1,6 +1,6 @@
 /* Card Styles */
 .card-container {
-  /* height: 100vh; */
+  height: 100%;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -19,14 +19,6 @@
 }
 .card:hover {
   transform: scale(1.03);
-}
-.empty-card {
-  background-color: rgb(241, 255, 212);
-  height: 86vh;
-  width: 100vw;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .card .image {
@@ -51,9 +43,6 @@
   border-radius: 1rem;
   overflow: auto;
 }
-.description::-webkit-scrollbar {
-  display: none;
-}
 .card button {
   width: 100%;
   background-color: rgb(105, 105, 105);
@@ -68,6 +57,14 @@
   background-color: #999;
   color: black;
 }
+
+@media screen and (max-width: 800px) {
+  .card {
+    width: 28rem;
+  }
+}
+
+/* RequestCard CSS */
 .requestBtns {
   display: flex;
 }
@@ -75,8 +72,58 @@
   width: 40%;
   margin: 0rem 1.5rem;
 }
-@media screen and (max-width: 800px) {
-  .card {
-    width: 28rem;
+
+/* EmptyCard CSS */
+.empty-card {
+  background-color: rgb(241, 255, 212);
+  height: 86vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* FriendsCard CSS */
+.friend {
+  height: 7rem;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 2rem;
+  border-radius: 1.2rem;
+  background: rgb(131, 58, 180);
+  background: linear-gradient(90deg, rgba(131, 58, 180, 1) 0%, rgba(253, 29, 29, 1) 50%, rgba(252, 176, 69, 1) 100%);
+  background-size: 400% 400%;
+  animation: Gradient 10s ease infinite;
+  scroll-behavior: smooth;
+}
+
+@keyframes Gradient {
+  0% {
+    background-position: 0% 50%;
   }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.friend:hover {
+  cursor: pointer;
+  background: rgb(238, 174, 202);
+  background: linear-gradient(90deg, rgba(238, 174, 202, 1) 0%, rgba(148, 187, 233, 1) 100%);
+}
+
+.friend img {
+  height: 5rem;
+  width: 5rem;
+  border-radius: 100%;
+  margin: 0 1.5rem;
+}
+.friend span {
+  color: #fff;
+  font-size: 1.5rem;
+  text-transform: capitalize;
 }

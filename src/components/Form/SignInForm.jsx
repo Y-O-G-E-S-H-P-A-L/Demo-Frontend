@@ -43,7 +43,7 @@ const SignInForm = ({ setUserLogin }) => {
 
   return (
     <>
-      <div className="app">
+      <div className="forms">
         <form className="form" method="POST">
           <div className="left"></div>
           <div className="form-heading">Login</div>

@@ -18,19 +18,19 @@ const Requests = ({ userLogin }) => {
 
   return (
     <>
+      <Header userLogin={userLogin} />
       <div className="home">
-        <Header userLogin={userLogin} />
         <div className="card-container">
           {requests.length ? (
             requests.map((id) => {
               return <RequestCard userLogin={userLogin} key={id} id={id} />;
             })
           ) : (
-            <EmptyCard msg={"No Requests Found !!"} />
+            <EmptyCard />
           )}
         </div>
-        <Footer name={"YOGESH & JATUL"} />
       </div>
+      <Footer />
     </>
   );
 };

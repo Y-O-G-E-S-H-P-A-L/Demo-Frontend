@@ -5,7 +5,7 @@ import logo from "../../images/logo.jpg";
 import { Link, useNavigate } from "react-router-dom";
 
 const Header = ({ userLogin }) => {
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState();
   const navigate = useNavigate();
   let login = false;
   if (Object.keys(userLogin).length !== 0) {
@@ -34,9 +34,7 @@ const Header = ({ userLogin }) => {
       </Link>
       {login ? (
         <div className="tab">
-          <div onClick={getRequests}>
-            Requests<span>{count}</span>
-          </div>
+          <div onClick={getRequests}>Requests{count ? <span>{count}</span> : <></>}</div>
           <div onClick={getFriends}>Friends</div>
         </div>
       ) : (
@@ -55,12 +53,25 @@ const Header = ({ userLogin }) => {
         <></>
       )}
       {login ? (
-        <Link to="../../">
-          <div className="profile">
-            <span>{userLogin.name ? userLogin.name : "username"}</span>
-            <img src={userLogin.profilePicture ? userLogin.profilePicture : user} alt="" />
+        <div>
+          <div className="btn">
+            <Link to="../../../../../user/login">
+              <button
+                onClick={() => {
+                  userLogin = {};
+                }}
+              >
+                Logout
+              </button>
+            </Link>
           </div>
-        </Link>
+          <Link to="../../">
+            <div className="profile">
+              <span>{userLogin.name ? userLogin.name : "username"}</span>
+              <img src={userLogin.profilePicture ? userLogin.profilePicture : user} alt="" />
+            </div>
+          </Link>
+        </div>
       ) : (
         <></>
       )}

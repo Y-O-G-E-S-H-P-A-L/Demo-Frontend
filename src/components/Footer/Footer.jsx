@@ -1,11 +1,11 @@
 import React from "react";
 import "./Footer.css";
 
-const Footer = ({ name }) => {
+const Footer = () => {
   return (
     <footer>
       <label>Developer :</label>
-      <span>{name}</span>
+      <span>Yogesh & Jatul</span>
     </footer>
   );
 };
