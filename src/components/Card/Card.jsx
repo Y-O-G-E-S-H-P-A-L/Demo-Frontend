@@ -1,6 +1,6 @@
 import React from "react";
 import "./Card.css";
-import profile from "../../images/icon.png";
+import profile from "../../images/user.png";
 
 const Card = ({ user, userLogin }) => {
   let { name, email, location, profilePicture } = user;

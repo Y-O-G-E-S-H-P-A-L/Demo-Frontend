@@ -34,10 +34,10 @@ header div > img {
   position: relative;
 }
 .tab > div span {
+  display: flex;
   height: 2rem;
   width: 2rem;
   color: white;
-  display: flex;
   justify-content: center;
   align-items: center;
   font-size: 1.25rem;
@@ -47,6 +47,7 @@ header div > img {
   right: -0.5rem;
   top: -0.5rem;
 }
+
 .logo:hover,
 .profile:hover,
 .tab > div:hover,

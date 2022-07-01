@@ -3,6 +3,7 @@ import "../Home/Home.css";
 import RequestCard from "../Card/RequestCard";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
+import EmptyCard from "../Card/EmptyCard";
 
 const Requests = ({ userLogin }) => {
   const [requests, setRequests] = useState([]);
@@ -15,21 +16,18 @@ const Requests = ({ userLogin }) => {
     getData();
   }, [userLogin]);
 
-  // const getUserDetail = async (id) => {
-  //   const res = await fetch(`/user/${id}`);
-  //   const singleUser = await res.json();
-  //   return singleUser;
-  // };
-
   return (
     <>
       <div className="home">
         <Header userLogin={userLogin} />
         <div className="card-container">
-          {requests.map((id) => {
-            // const user = getUserDetail(id);
-            return <RequestCard id={id} userLogin={userLogin} key={id} />;
-          })}
+          {requests.length ? (
+            requests.map((id) => {
+              return <RequestCard userLogin={userLogin} key={id} id={id} />;
+            })
+          ) : (
+            <EmptyCard msg={"No Requests Found !!"} />
+          )}
         </div>
         <Footer name={"YOGESH & JATUL"} />
       </div>

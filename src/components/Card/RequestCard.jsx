@@ -1,16 +1,17 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./Card.css";
-import profile from "../../images/icon.png";
+import profile from "../../images/user.png";
 
-const RequestCard = ({ user, userLogin, id }) => {
-  const getDetails = async () => {
-    console.log(`/user/${id}`);
-    const res = await fetch(`/user/${id}`);
-    const u = await res.json();
-    console.log(user);
-  };
-  getDetails();
-  console.log(user);
+const RequestCard = ({ userLogin, id }) => {
+  const [user, setUser] = useState([]);
+
+  useEffect(() => {
+    const getData = async () => {
+      const response = await fetch(`/user/${id}`);
+      setUser(await response.json());
+    };
+    getData();
+  }, [id]);
 
   let { name, email, location, profilePicture } = user;
   if (!profilePicture) {
@@ -58,13 +59,11 @@ const RequestCard = ({ user, userLogin, id }) => {
       console.log(data.message);
     }
   };
-
   return (
     <div className="card">
       <div className="image">
         <img src={profilePicture} alt="UserProfile" />
       </div>
-      <input type="hidden" name="id" id="id" value={user._id} />
       <div className="name">Name : {name}</div>
       <div className="description">Email : {email}</div>
       <div className="description">Location : {location}</div>

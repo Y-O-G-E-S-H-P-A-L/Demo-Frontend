@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Header.css";
-import user from "../../images/user.jpg";
+import user from "../../images/user.png";
 import logo from "../../images/logo.jpg";
 import { Link, useNavigate } from "react-router-dom";
 

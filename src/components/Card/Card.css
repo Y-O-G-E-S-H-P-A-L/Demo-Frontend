@@ -1,5 +1,6 @@
 /* Card Styles */
 .card-container {
+  /* height: 100vh; */
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -19,6 +20,15 @@
 .card:hover {
   transform: scale(1.03);
 }
+.empty-card {
+  background-color: rgb(241, 255, 212);
+  height: 86vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .card .image {
   height: 60%;
   width: 100%;
