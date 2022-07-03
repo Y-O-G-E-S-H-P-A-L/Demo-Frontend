@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 const FriendCard = ({ id, setFriendId }) => {
   const [user, setUser] = useState([]);
-
+  setFriendId(id);
   useEffect(() => {
     const getData = async () => {
       const response = await fetch(`/user/${id}`);

@@ -10,7 +10,6 @@ const Friends = ({ userLogin }) => {
   const [friends, setFriends] = useState([]);
   const [friendId, setFriendId] = useState();
 
-  console.log(friendId);
   useEffect(() => {
     const getData = async () => {
       const response = await fetch(`/user/friends/${userLogin._id}`);
@@ -18,8 +17,6 @@ const Friends = ({ userLogin }) => {
     };
     getData();
   }, [userLogin]);
-
-  console.log(friendId);
   return (
     <>
       <Header userLogin={userLogin} />
@@ -28,7 +25,7 @@ const Friends = ({ userLogin }) => {
           <div className="left">
             {friends.length ? (
               friends.map((id) => {
-                return <FriendCard key={id} id={id} setFriendId={setFriendId} />;
+                return <FriendCard id={id} setFriendId={setFriendId} key={id} />;
               })
             ) : (
               <EmptyCard />
